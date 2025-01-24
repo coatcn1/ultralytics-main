@@ -127,9 +127,9 @@ def run(weights='runs/detect/train112/weights/best.pt', source=None, device='cpu
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='D:/Documents/Workplace-python/git/yolocode/112/best.pt', help='initial weights path')  # 修改为新的路径
+    parser.add_argument('--weights', type=str, default='/home/coatcn/workspace/yolocode/112/best.pt', help='initial weights path')  # 修改为新的路径
     parser.add_argument('--device', default='0', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    parser.add_argument('--source', type=str, default='D:/Documents/Workplace-python/git/yolocode/video/VID_20240223_152846.mp4', help='video file path')  # 修改为新的路径
+    parser.add_argument('--source', type=str, default='/home/coatcn/workspace/yolocode/video/VID_20240223_152846.mp4', help='video file path')  # 修改为新的路径
     parser.add_argument('--view-img', action='store_true', default=True, help='show results')
     parser.add_argument('--save-img', action='store_true', default=True, help='save results')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
