@@ -9,3 +9,4 @@ einops
 timm
 torchsummary
 pandas
+numpy
