@@ -1,0 +1,12 @@
+ultralytics
+opencv-python
+shapely
+psutil
+matplotlib
+pyyaml
+tqdm
+einops
+timm
+torchsummary
+pandas
+numpy
