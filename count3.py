@@ -32,6 +32,9 @@ counting_regions = [
     }
 ]
 
+# 初始化 current_region，用于鼠标拖拽操作
+current_region = None
+
 def mouse_callback(event, x, y, flags, param):
     global current_region
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -42,7 +45,7 @@ def mouse_callback(event, x, y, flags, param):
                 current_region['offset_x'] = x
                 current_region['offset_y'] = y
     elif event == cv2.EVENT_MOUSEMOVE:
-        if current_region is not None and current_region['dragging']:
+        if current_region is not None and current_region.get('dragging', False):
             dx = x - current_region['offset_x']
             dy = y - current_region['offset_y']
             current_region['polygon'] = Polygon([
@@ -51,7 +54,7 @@ def mouse_callback(event, x, y, flags, param):
             current_region['offset_x'] = x
             current_region['offset_y'] = y
     elif event == cv2.EVENT_LBUTTONUP:
-        if current_region is not None and current_region['dragging']:
+        if current_region is not None and current_region.get('dragging', False):
             current_region['dragging'] = False
 
 def run(weights='models/best.pt', source=None, device='cpu', view_img=False, save_img=False, exist_ok=False, classes=None, line_thickness=2, track_thickness=2, region_thickness=2):
@@ -128,7 +131,8 @@ def parse_opt():
     parser.add_argument('--device', default='0', help='cuda 设备，如 0 或 cpu')
     # 修改 --source 参数，必须由调用方提供，不再使用默认值
     parser.add_argument('--source', type=str, required=True, help='视频文件路径')
-    parser.add_argument('--view-img', action='store_true', default=True, help='显示视频')
+    # 将 view_img 默认关闭，避免在无 GUI 环境下报错
+    parser.add_argument('--view-img', action='store_true', default=False, help='显示视频')
     parser.add_argument('--save-img', action='store_true', default=True, help='保存标注后的视频')
     parser.add_argument('--exist-ok', action='store_true', help='允许存在同名项目')
     parser.add_argument('--classes', nargs='+', type=int, help='过滤目标类别')
