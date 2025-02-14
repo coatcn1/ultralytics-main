@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 from shapely.geometry import Polygon, Point
 from ultralytics import YOLO
-from ultralytics.utils.files import increment_path
 from ultralytics.utils.plotting import Annotator, colors
 import os
 
@@ -73,7 +72,8 @@ def run(weights='models/best.pt', source=None, device='cpu', view_img=False, sav
     frame_width, frame_height = int(videocapture.get(3)), int(videocapture.get(4))
     fps, fourcc = int(videocapture.get(5)), cv2.VideoWriter_fourcc(*'mp4v')
 
-    save_dir = increment_path(Path('ultralytics_rc_output') / 'exp', exist_ok=exist_ok)
+    # 修改输出路径为 outputs 文件夹，不再使用 exp 文件夹
+    save_dir = Path('outputs')
     save_dir.mkdir(parents=True, exist_ok=True)
     video_writer = cv2.VideoWriter(str(save_dir / f'{Path(source).stem}.mp4'), fourcc, fps, (frame_width, frame_height))
 
